@@ -10,4 +10,4 @@ export const calculateFinalPrice = (
   const diffInDays = Math.max(Math.ceil(diffInMs / (1000 * 60 * 60 * 24)), 1);
 
   return pricePerDay * diffInDays;
-};
+}; 
