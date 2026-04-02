@@ -37,7 +37,7 @@ La solución implementa un flujo mínimo compuesto por:
 ### 1. Clonar el repositorio
 
 ```bash
-git clone <URL_DEL_REPOSITORIO>
+git clone https://github.com/N1c0-F4j4rd0/outlet-rental-cars-test-technical.git
 cd outlet-rental-cars-test-technical
 ### 2. Instalar dependencias
 npm install
