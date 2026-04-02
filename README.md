@@ -1,40 +1,157 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/pages/api-reference/create-next-app).
+# Outlet Rental Cars - Prueba Técnica Front-End
 
-## Getting Started
+## Descripción general
 
-First, run the development server:
+Este proyecto corresponde a una prueba técnica para el rol de **Desarrollador Front-End**, cuyo objetivo es construir un flujo reducido de búsqueda y selección de vehículos para **Outlet Rental Cars**, aplicando buenas prácticas de desarrollo con **Next.js**, **TypeScript**, **Redux + Thunk**, renderizado del lado del servidor (**SSR**) y una estructura clara por capas.
+
+La solución implementa un flujo mínimo compuesto por:
+
+- **Búsqueda de vehículos**
+  - Ciudad o aeropuerto
+  - Fecha de recogida
+  - Fecha de devolución
+- **Resultados**
+  - Consumo de un mock de API
+  - Visualización de vehículos disponibles
+  - Selección de vehículo
+- **Resumen**
+  - Vehículo seleccionado
+  - Precio final estimado
+  - Visualización en distintas monedas
+
+---
+
+## Tecnologías utilizadas
+
+- **Next.js**
+- **TypeScript**
+- **Redux Toolkit**
+- **Redux Thunk**
+- **CSS personalizado**
+- **SSR con `getServerSideProps`**
+
+---
+
+## Cómo ejecutar el proyecto
+
+### 1. Clonar el repositorio
 
 ```bash
+git clone <URL_DEL_REPOSITORIO>
+cd outlet-rental-cars-test-technical
+### 2. Instalar dependencias
+npm install
+
+### 3. Ejecutar en modo desarrollo
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 4. Abrir en el navegador
+http://localhost:3000
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
 
-[API routes](https://nextjs.org/docs/pages/building-your-application/routing/api-routes) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+—
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/pages/building-your-application/routing/api-routes) instead of React pages.
 
-This project uses [`next/font`](https://nextjs.org/docs/pages/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Decisiones técnicas
+### 1. Uso de Next.js
 
-## Learn More
+Se eligió Next.js porque la prueba solicita explícitamente este framework y además requiere SSR para los resultados de búsqueda. Para hacer esta implementación más clara y fácil de auditar, se utilizó el enfoque basado en pages/ con getServerSideProps.
 
-To learn more about Next.js, take a look at the following resources:
+### 2. Uso de TypeScript
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn-pages-router) - an interactive Next.js tutorial.
+Se utilizó TypeScript para aportar mayor seguridad en el tipado, mejorar la mantenibilidad del código y reducir errores relacionados con estructuras de datos y props de componentes.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### 3. Arquitectura por capas
 
-## Deploy on Vercel
+El proyecto se organizó con una separación básica entre:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- UI: páginas, componentes y presentación visual
+- Lógica de negocio: cálculos y reglas del flujo
+- Datos: mock API y acceso a datos
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/pages/building-your-application/deploying) for more details.
+Esta separación permite que el código sea más claro, escalable y fácil de mantener.
+
+### 4. Manejo de estado con Redux + Thunk
+
+Se utilizó Redux Toolkit con Thunk para centralizar el estado relacionado con:
+
+- Resultados de la búsqueda
+- Vehículo seleccionado
+- Estados de loading
+- Estados de error
+
+Aunque el flujo es pequeño, esta decisión permite demostrar una estructura preparada para escalar a un flujo más completo de reserva.
+
+### 5. SSR en resultados
+
+La página de resultados obtiene la información del lado del servidor para cumplir con el requerimiento técnico. Esto deja claro que la información se procesa antes de renderizar la vista, en lugar de depender únicamente de renderizado en cliente.
+
+### 6. Mock API interna
+
+Para mantener la prueba autocontenida y fácil de ejecutar, se implementó un endpoint mock dentro del mismo proyecto usando pages/api/vehicles.ts. Esto evita dependencias externas y hace que el proyecto sea reproducible localmente.
+
+### 7. Conversión de moneda
+
+Se agregó la opción de visualizar precios en USD, COP y EUR. Para esta prueba se utilizaron tasas de conversión mock con fines demostrativos. En un entorno real, estas tasas deberían consumirse desde un servicio externo confiable o ser provistas por backend.
+
+### 8. UI y experiencia de usuario
+
+Se buscó una interfaz visualmente consistente con el estilo general de Outlet Rental Cars, utilizando:
+
+- Paleta de color alineada con la marca
+- Diseño responsive
+- Jerarquía visual clara
+- Animaciones suaves
+- Accesibilidad básica en formularios y navegación
+
+—
+
+
+### Cómo integraría la aplicación con una pasarela de pago
+
+Para integrar esta aplicación con una pasarela de pago en un entorno real, propondría un flujo donde el Front-End y el Back-End tengan responsabilidades claramente separadas.
+
+### Flujo propuesto
+1. El usuario realiza la búsqueda, selecciona un vehículo y confirma los datos de su reserva.
+2. El Front-End envía al backend la información necesaria de la reserva:
+- vehículo seleccionado
+- fechas
+- ubicación
+- moneda
+- precio calculado
+3. El backend valida la información, recalcula el monto final para evitar manipulaciones desde cliente y crea una intención de pago o sesión de checkout con la pasarela elegida.
+4. La pasarela devuelve un identificador seguro o una URL de pago que el Front-End utiliza para continuar el proceso.
+5. Una vez completado el pago, el backend recibe la confirmación final por medio de un webhook o notificación segura.
+6. Finalmente, el estado de la reserva se actualiza a pagada y el usuario recibe la confirmación correspondiente.
+
+### Consideraciones importantes
+- El Front-End no debería manejar directamente datos sensibles de tarjeta.
+- El backend debe ser el responsable de:
+  - validar montos
+  - crear la intención de pago
+  - verificar el resultado del pago
+  - registrar el estado final de la reserva
+- Se debe contemplar manejo de errores, pagos rechazados, expiración de sesión y reintentos.
+- Para una implementación real, sería recomendable integrar una pasarela reconocida como Stripe, Adyen o Mercado Pago, según la región y necesidades del negocio.
+
+### Enfoque de seguridad
+
+Para proteger la integridad del proceso:
+
+- el precio final debe validarse en backend
+- los identificadores de reserva deben ser seguros
+- la confirmación del pago debe validarse mediante webhook
+- nunca se deben confiar montos calculados únicamente desde el cliente
+
+### Mejoras futuras
+
+Como evolución natural del proyecto, se podrían incorporar:
+
+- integración real con API externa de disponibilidad
+- filtros avanzados por tipo de vehículo
+- imágenes reales de autos
+- autenticación de usuario
+- proceso completo de checkout
+- integración real con pasarela de pago
+- persistencia de reserva
+- testing unitario e integración
