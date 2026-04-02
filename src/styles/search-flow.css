@@ -238,15 +238,35 @@ body,
 .orc-input,
 .orc-select {
   width: 100%;
-  min-height: 56px;
+  height: 56px;
   border-radius: 16px;
   border: 1px solid #d0d5dd;
-  padding: 14px 16px;
+  padding: 0 16px;
   font-size: 1rem;
   color: var(--orc-text-primary);
   outline: none;
   transition: all 0.25s ease;
   background: #fff;
+}
+
+.orc-input[type="date"] {
+  appearance: none;
+  -webkit-appearance: none;
+  color-scheme: light;
+  cursor: pointer;
+}
+
+.orc-input[type="date"]::-webkit-calendar-picker-indicator {
+  cursor: pointer;
+  opacity: 1;
+}
+
+.orc-input[type="date"]::-webkit-datetime-edit {
+  color: var(--orc-text-primary);
+}
+
+.orc-input[type="date"]::-webkit-datetime-edit-fields-wrapper {
+  color: var(--orc-text-primary);
 }
 
 .orc-input:focus,

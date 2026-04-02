@@ -100,20 +100,21 @@ export default function ResultsPage({
               <div className="orc-logo-subtitle">by miles car rental</div>
             </div>
 
-            <div className="orc-chip">Flujo de selección de vehículos</div>
+            <div className="orc-chip">Disponibilidad en tiempo real</div>
           </header>
 
           <section className="orc-results-header">
             <div style={{ maxWidth: '760px' }}>
-              <div className="orc-eyebrow">Búsqueda de vehículos</div>
-              <h1 className="orc-title" style={{ marginBottom: '14px', fontSize: '3.4rem' }}>
-                Vehículos disponibles para tu viaje
-              </h1>
-              <p className="orc-description">
-                Revisa las opciones disponibles para <strong>{searchParams.location}</strong>{' '}
-                desde el <strong>{searchParams.pickupDate}</strong> hasta el{' '}
-                <strong>{searchParams.dropoffDate}</strong>.
-              </p>
+              <div className="orc-eyebrow">Resultados de tu búsqueda</div>
+                <h1 className="orc-title" style={{ marginBottom: '14px', fontSize: '3.4rem' }}>
+                  Elige el vehículo ideal para tu próxima aventura
+                </h1>
+                <p className="orc-description">
+                  Estas son las opciones disponibles para <strong>{searchParams.location}</strong>{' '}
+                  entre el <strong>{searchParams.pickupDate}</strong> y el{' '}
+                  <strong>{searchParams.dropoffDate}</strong>. Compara tarifas y selecciona
+                  el auto que mejor se ajuste a tu viaje.
+                </p>
             </div>
 
             <div className="orc-currency-box">
@@ -129,8 +130,7 @@ export default function ResultsPage({
                 <option value="EUR">EUR - Euro</option>
               </select>
               <p className="orc-currency-note">
-                Conversión mock para la prueba técnica. En producción debería venir
-                desde un servicio externo.
+                Visualiza el valor estimado de tu reserva en la moneda que prefieras para facilitar la comparación de tarifas.
               </p>
             </div>
           </section>
@@ -160,9 +160,9 @@ export default function ResultsPage({
             <div className="orc-panel">
               <div className="orc-result-top">
                 <div>
-                  <h2 className="orc-panel-title">Resultados disponibles</h2>
+                  <h2 className="orc-panel-title">Autos disponibles</h2>
                   <p className="orc-panel-subtext">
-                    Selecciona el vehículo que mejor se adapte a tu viaje.
+                    Compara características y tarifas estimadas antes de confirmar tu elección.
                   </p>
                 </div>
 
@@ -194,12 +194,17 @@ export default function ResultsPage({
                         className={`orc-vehicle-card ${isSelected ? 'selected' : ''}`}
                       >
                         <div>
-                          <span className="orc-badge">Vehículo disponible</span>
+                          <span className="orc-badge">{vehicle.category || 'Vehículo disponible'}</span>
                           <h3 className="orc-vehicle-name">{vehicle.name}</h3>
                           <p className="orc-vehicle-text">
-                            Ideal para viajes cómodos, reservas rápidas y una experiencia
-                            de selección moderna, clara y visualmente atractiva.
+                            {vehicle.description}
                           </p>
+
+                          <div style={{ marginTop: '12px', color: '#475467', fontSize: '0.95rem', lineHeight: 1.7 }}>
+                            {vehicle.passengers ? <div>Capacidad: {vehicle.passengers} pasajeros</div> : null}
+                            {vehicle.transmission ? <div>Transmisión: {vehicle.transmission}</div> : null}
+                            {vehicle.fuel ? <div>Combustible: {vehicle.fuel}</div> : null}
+                          </div>
                         </div>
 
                         <div>
@@ -292,10 +297,10 @@ export default function ResultsPage({
 
                   <div className="orc-benefits">
                     <div className="orc-benefit-success">
-                      Cancelación flexible disponible
+                      Tarifas competitivas en ubicaciones seleccionadas
                     </div>
                     <div className="orc-benefit-info">
-                      Proceso de selección claro y rápido
+                      Recogida práctica en ciudad o aeropuerto
                     </div>
                   </div>
                 </>

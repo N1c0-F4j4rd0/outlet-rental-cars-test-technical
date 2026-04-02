@@ -35,6 +35,7 @@ export default function HomePage() {
     });
   };
 
+  const today = new Date().toISOString().split('T')[0];
   return (
     <>
       <Head>
@@ -53,29 +54,30 @@ export default function HomePage() {
               <div className="orc-logo-subtitle">by miles car rental</div>
             </div>
 
-            <div className="orc-chip">Reserva fácil y rápida</div>
+            <div className="orc-chip">Ofertas exclusivas en renta de autos</div>
           </header>
 
           <section className="orc-hero">
             <div className="orc-hero-content">
-              <div className="orc-eyebrow">Outlet Rental Cars</div>
-              <h1 className="orc-title">
-                Encuentra el vehículo ideal para tu próximo viaje
-              </h1>
-              <p className="orc-description">
-                Consulta disponibilidad por ciudad o aeropuerto, elige tus fechas y
-                revisa resultados con una experiencia moderna, clara y alineada al
-                estilo visual de Outlet Rental Cars.
-              </p>
+              <div className="orc-eyebrow">Renta de autos en destinos populares</div>
+                <h1 className="orc-title">
+                  Encuentra el auto perfecto para viajar con comodidad y al mejor precio
+                </h1>
+                <p className="orc-description">
+                  Reserva vehículos en aeropuertos y ciudades principales de Estados Unidos.
+                  Compara opciones, consulta disponibilidad en segundos y elige la alternativa
+                  que mejor se adapte a tu itinerario, presupuesto y estilo de viaje.
+                </p>
             </div>
 
             <div className="orc-hero-card">
               <div className="orc-hero-card-content">
                 <span className="orc-hero-card-badge">Hasta 40% de descuento</span>
-                <h2 className="orc-hero-card-title">Reserva con una experiencia más visual</h2>
+                <h2 className="orc-hero-card-title">Las mejores tarifas para tu próximo recorrido</h2>
                 <p className="orc-hero-card-text">
-                  Flujo de búsqueda, resultados y resumen de reserva con foco en UX,
-                  claridad visual y mantenibilidad del código.
+                  Encuentra autos compactos, SUVs y convertibles con tarifas competitivas,
+                  recogida en ubicaciones estratégicas y la flexibilidad que necesitas para
+                  disfrutar tu viaje sin complicaciones.
                 </p>
               </div>
             </div>
@@ -86,7 +88,7 @@ export default function HomePage() {
               Busca aquí
             </h2>
             <p className="orc-search-subtext">
-              Completa la información para consultar vehículos disponibles.
+              Ingresa tu destino y selecciona las fechas de recogida y devolución para ver las opciones disponibles.
             </p>
 
             <form onSubmit={handleSubmit} aria-label="Formulario de búsqueda de vehículos">
@@ -114,6 +116,7 @@ export default function HomePage() {
                     type="date"
                     className="orc-input"
                     value={pickupDate}
+                    min={today}
                     onChange={(event) => setPickupDate(event.target.value)}
                   />
                 </div>
@@ -127,6 +130,7 @@ export default function HomePage() {
                     type="date"
                     className="orc-input"
                     value={dropoffDate}
+                    min={pickupDate || today}
                     onChange={(event) => setDropoffDate(event.target.value)}
                   />
                 </div>
@@ -146,23 +150,23 @@ export default function HomePage() {
 
           <section className="orc-features" aria-label="Beneficios principales">
             <article className="orc-feature-card">
-              <h3 className="orc-feature-title">Búsqueda simple</h3>
+              <h3 className="orc-feature-title">Tarifas competitivas</h3>
               <p className="orc-feature-text">
-                Flujo claro y directo para que el usuario encuentre opciones rápido.
+                Accede a precios especiales y promociones en múltiples categorías de vehículos.
               </p>
             </article>
 
             <article className="orc-feature-card">
-              <h3 className="orc-feature-title">Resultados claros</h3>
+              <h3 className="orc-feature-title">Recogida en aeropuertos y ciudades</h3>
               <p className="orc-feature-text">
-                Visualización ordenada de vehículos, precios y selección.
+                Encuentra opciones disponibles en ubicaciones clave para iniciar tu viaje con facilidad.
               </p>
             </article>
 
             <article className="orc-feature-card">
-              <h3 className="orc-feature-title">Resumen inmediato</h3>
+              <h3 className="orc-feature-title">Reserva con total claridad</h3>
               <p className="orc-feature-text">
-                El usuario puede revisar el precio final y su elección al instante.
+                Consulta precio estimado, duración del alquiler y detalles de tu selección en un solo lugar.
               </p>
             </article>
           </section>
